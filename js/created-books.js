@@ -1,7 +1,7 @@
 const API_URL = "http://localhost:1717"
 
 let dd = document.createElement("a")
-console.log(dd);
+// console.log(dd);
 dd.href = "http://localhost:1717/index.html"
 const link = document.querySelector("a")
 const saveBtn = document.querySelector("#save-create-btn")

@@ -44,6 +44,7 @@ async function renderBooksItem() {
 
   document.querySelector('.book-detail h1').textContent = data.name
   const tbody = document.querySelector('.book-detail__table tbody')
+  
   const bookDetailLink = document.querySelector('#book-detail');
   console.log(bookDetailLink);
   bookDetailLink.setAttribute('href', '/edit.html?id=' + data.id);
