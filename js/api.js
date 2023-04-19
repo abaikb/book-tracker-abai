@@ -9,3 +9,8 @@ export const getBooks = async () => {
   const books = await response.json()
   return books
 }
+
+
+export const getBook = async (id) => {
+ 
+}
