@@ -3,10 +3,10 @@ import { getBook } from "./api.js"
 const API_URL = 'http://localhost:1717'
 
 async function getBooksItem(id) {
-    const response = await fetch(`${API_URL}/books/detail/${id}`)
-    const data = await response.json()
-    return data
-  }
+  const response = await fetch(`${API_URL}/books/detail/${id}`)
+  const data = await response.json()
+  return data
+}
 
 const createTableRow = (key, value) => {
   if (['id', 'name'].includes(key)) return
@@ -33,7 +33,7 @@ const createTableRow = (key, value) => {
     td1.textContent = 'Язык оригинала'
     td2.textContent = value
   }
-  
+
   tr.append(td1, td2)
   return tr
 }
@@ -44,11 +44,14 @@ async function renderBooksItem() {
 
   document.querySelector('.book-detail h1').textContent = data.name
   const tbody = document.querySelector('.book-detail__table tbody')
-  
+  const bookDetailLink = document.querySelector('#book-detail');
+  console.log(bookDetailLink);
+  bookDetailLink.setAttribute('href', '/edit.html?id=' + data.id);
+
+
   for (let key in data) {
     const tr = createTableRow(key, data[key])
-    console.log(key );
-    if (tr){
+    if (tr) {
       tbody.append(tr)
     }
 
@@ -56,3 +59,7 @@ async function renderBooksItem() {
 }
 
 renderBooksItem()
+
+
+
+

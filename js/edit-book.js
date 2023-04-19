@@ -1,36 +1,38 @@
-const API_URL = 'http://localhost:1717';
+const API_URL = "http://localhost:1717"
+const booksId = new URLSearchParams(window.location.search).get('id')
+const saveBtn = document.querySelector("#save-edit-btn")
 
-const editBookForm = document.querySelector('.edit-book');
+saveBtn.addEventListener("click", async () => {
+  try {
+    const bookData = {
+      name: document.querySelector("#name").value,
+      author: document.querySelector("#author").value,
+      publishYear: Number(document.querySelector("#publishYear").value),
+      publishHouse: document.querySelector("#publishHouse").value,
+      pagesNumber: Number(document.querySelector("#pagesNumber").value),
+      genres: Array(document.querySelector("#genres").value),
+      originalLanguage: document.querySelector("#originalLanguage").value,
+    }
+    const updateResponse = await fetch(`${API_URL}/books/update/${booksId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookData),
+    })
 
-editBookForm.addEventListener('submit', async (event) => {
-  event.preventDefault()
+    console.log(updateResponse);
 
-  const bookData = {
-    name: document.querySelector('#name').value,
-    author: document.querySelector('#author').value,
-    publishYear: Number(document.querySelector('#publishYear').value),
-    publishHouse: document.querySelector('#publishHouse').value,
-    pagesNumber: Number(document.querySelector('#pagesNumber').value),
-    genres: document.querySelector('#genres').value.split(','),
-    originalLanguage: document.querySelector('#originalLanguage').value,
-  };
+    if (!updateResponse.ok) {
+      throw new Error(`Failed to update book: ${updateResponse.status}`)
+    }
 
-  const bookId = new URLSearchParams(window.location.search).get('id');
-  const response = await fetch(`${API_URL}/books/${bookId}`);
-  const data = await response.json();
-  
-  const editResponse = await fetch(`${API_URL}/books/${bookId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(bookData)
-  });
+    const updatedBook = await updateResponse.json();
+    console.log("Updated book:", updatedBook)
 
-  if (editResponse.ok) {
-    window.location.href = `/detail.html?id=${bookId}`;
-  } else {
-    const error = await editResponse.json()
+    link.click() 
+
+  } catch (error) {
     console.error(error)
   }
-});
+})
