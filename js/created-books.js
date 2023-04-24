@@ -1,7 +1,6 @@
 const API_URL = "http://localhost:1717"
 
 let dd = document.createElement("a")
-// console.log(dd);
 dd.href = "http://localhost:1717/index.html"
 const link = document.querySelector("a")
 const saveBtn = document.querySelector("#save-create-btn")
@@ -26,13 +25,13 @@ saveBtn.addEventListener("click", async () => {
       body: JSON.stringify(bookData),
     })
 
-    console.log(createResponse);
+    console.log(createResponse)
 
     if (!createResponse.ok) {
       throw new Error(`Failed to create book: ${createResponse.status}`)
     }
 
-    const createdBook = await createResponse.json();
+    const createdBook = await createResponse.json()
     console.log("Created book:", createdBook)
 
     link.click() 

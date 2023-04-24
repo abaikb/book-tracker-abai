@@ -10,7 +10,19 @@ export const getBooks = async () => {
   return books
 }
 
-
 export const getBook = async (id) => {
- 
+  const response = await fetch(createApiRoute(`/books/${id}`))
+  const book = await response.json()
+  return book
+}
+
+export const editBook = async (newData, id) => {
+  const response = await fetch(createApiRoute(`/books/update/${id}`), {
+    method: 'PUT',
+    body: JSON.stringify(newData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  return response.json()
 }
